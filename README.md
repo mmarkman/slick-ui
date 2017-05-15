@@ -1,5 +1,7 @@
 [![Gitter](https://badges.gitter.im/slick-ui/Lobby.svg)](https://gitter.im/slick-ui/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
+** UNDER CONSTRUCTION! This is an npm/es6-module-style version of this library, forked from the original. **
+
 Released as public domain - feel free to do anything to the library code you like. (this excludes the assets and the Phaser game engine)
 
 # SlickUI
