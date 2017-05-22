@@ -1,7 +1,7 @@
 
 import { ButtonRenderer } from './Element/Renderer/ButtonRenderer'
 import { PanelRenderer } from './Element/Renderer/PanelRenderer'
-import { CheckBoxRenderer } from './Element/Renderer/CheckboxRenderer'
+import { CheckboxRenderer } from './Element/Renderer/CheckboxRenderer'
 import Container from './Container/Container'
 import { Panel } from './Element/Panel'
 import { Button } from './Element/Button'
@@ -21,7 +21,7 @@ export default class SlickUI {
     this.defaultRenderer = {
       'button': new ButtonRenderer(game),
       'panel': new PanelRenderer(game),
-      'checkbox': new CheckBoxRenderer(game)
+      'checkbox': new CheckboxRenderer(game)
 
       /*,
             "checkbox": "SlickUI.Element.Renderer.CheckboxRenderer",

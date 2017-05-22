@@ -11,6 +11,7 @@ export class DisplayObject extends Element {
     this._offsetY = y
     this.displayObject = displayObject
     this.container = null
+    init()
     this._width = width
     this._height = height
     Object.defineProperty(this, 'x', {
@@ -86,7 +87,7 @@ export class DisplayObject extends Element {
      * @param container
      */
   setContainer (container) {
-    this.container = Container(container)
+    this.container = new Container(container)
 
     if (typeof this._width === 'undefined') {
       this._width = this.container.root.game.width

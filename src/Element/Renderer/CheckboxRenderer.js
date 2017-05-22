@@ -1,3 +1,4 @@
+
 export class CheckboxRenderer {
 
   constructor (game) {
@@ -9,5 +10,5 @@ export class CheckboxRenderer {
     var on = this.game.make.sprite(0, 0, 'slick-ui-' + key + '_on')
 
     return [off, on]
-  };
+  }
 }

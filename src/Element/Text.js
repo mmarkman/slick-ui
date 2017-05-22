@@ -1,4 +1,5 @@
 import Element from '../Element/Element'
+import Container from '../Container/Container'
 export class Text extends Element {
 
   constructor (x, y, value, size, font, width, height) {
@@ -45,7 +46,7 @@ export class Text extends Element {
      * @param container
      */
   setContainer (container) {
-    this.container = container
+    this.container = new Container(container)
 
     if (typeof this.width === 'undefined') {
       this.width = this.container.root.game.width

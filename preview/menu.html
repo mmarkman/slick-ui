@@ -23,20 +23,20 @@
         game.add.sprite(0,-125,'backdrop');
         var button, panel, menuButton;
         slickUI.add(panel = new slickUI.Panel(game.width - 156, 8, 150, game.height - 16));
-        panel.add(new SlickUI.Text(10,0, "Menu")).centerHorizontally().text.alpha = 0.5;
+        panel.add(new slickUI.Text(10,0, "Menu")).centerHorizontally().text.alpha = 0.5;
         panel.add(button = new SlickUI.Button(0,game.height - 166, 140, 80)).events.onInputUp.add(function () {
             console.log('Clicked save game');
         });
 
-        button.add(new SlickUI.Text(0,0, "Save game")).center();
+        button.add(new slickUI.Text(0,0, "Save game")).center();
 
-        panel.add(button = new SlickUI.Button(0,game.height - 76, 140, 40));
-        button.add(new SlickUI.Text(0,0, "Close")).center();
+        panel.add(button = new slickUI.Button(0,game.height - 76, 140, 40));
+        button.add(new slickUI.Text(0,0, "Close")).center();
 
         panel.visible = false;
         var basePosition = panel.x;
 
-        slickUI.add(menuButton = new SlickUI.Element.DisplayObject(game.width - 45, 8, game.make.sprite(0, 0, 'menu-button')));
+        slickUI.add(menuButton = new slickUI.DisplayObject(game.width - 45, 8, game.make.sprite(0, 0, 'menu-button')));
         menuButton.inputEnabled = true;
         menuButton.input.useHandCursor = true;
         menuButton.events.onInputDown.add(function () {
@@ -60,7 +60,7 @@
         });
 
         var cb1, cb2;
-        panel.add(cb1 = new SlickUI.Element.Checkbox(0,100, SlickUI.Element.Checkbox.TYPE_RADIO));
+        panel.add(cb1 = new slickUI.Checkbox(0,100, SlickUI.Element.Checkbox.TYPE_RADIO));
         cb1.events.onInputDown.add(function () {
             if(cb1.checked && cb2.checked) {
                 cb2.checked = false;
@@ -70,7 +70,7 @@
             }
         }, this);
 
-        panel.add(cb2 = new SlickUI.Element.Checkbox(50,100, SlickUI.Element.Checkbox.TYPE_RADIO));
+        panel.add(cb2 = new slickUI.Checkbox(50,100, SlickUI.Element.Checkbox.TYPE_RADIO));
         cb2.events.onInputDown.add(function () {
             if(cb1.checked && cb2.checked) {
                 cb1.checked = false;
@@ -80,7 +80,7 @@
             }
         }, this);
 
-        panel.add(new SlickUI.Element.Checkbox(100,100));
+        panel.add(new slickUI.Checkbox(100,100));
     }
     function update() {
 
