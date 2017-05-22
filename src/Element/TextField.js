@@ -90,7 +90,11 @@ export class TextField {
       }
     })
   }
-
+  updateText (textVal) {
+    this.value = textVal
+    this.text.text.text = this.value
+    this.events.onKeyPress.dispatch(this.value)
+  }
   setContainer (container) {
     this.container = new Container(container)
   }
@@ -115,16 +119,21 @@ export class TextField {
     this._offsetX = x
     this._offsetY = y
     this.sprite.fixedToCamera = true
+
     var input = document.createElement('INPUT')
     input.setAttribute('type', 'text')
-    input.onkeyPress = function () {
-      this.updateText(input.value)
+    input.oninput = () => {
+      this.value = input.value
+      this.text.text.text = this.value
+      this.events.onKeyPress.dispatch(this.value)
+      input.blur()
+      input.focus()
     }
     input.alpha = 0
     input.style.width = 0
     input.style.height = 0
     document.body.appendChild(input)
-    this.sprite.events.onInputDown.add(function () {
+    this.sprite.events.onInputDown.add(() => {
       input.focus()
     })
 
@@ -132,12 +141,6 @@ export class TextField {
     this.text.centerVertically()
     this.text.text.text = this.value
   };
-
-  updateText (textVal) {
-    this.value = textVal
-    this.text.text.text = this.value
-    this.events.onKeyPress.dispatch(this.value)
-  }
 
   add (element) {
     return this.container.add(element)
