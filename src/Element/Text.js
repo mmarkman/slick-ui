@@ -31,6 +31,24 @@ export class Text extends Element {
       }
     })
 
+    Object.defineProperty(this, 'alpha', {
+      get: function () {
+        return this.text.alpha
+      },
+      set: function (value) {
+        this.text.alpha = value
+      }
+    })
+
+    Object.defineProperty(this, 'visible', {
+      get: function () {
+        return this.text.visible
+      },
+      set: function (value) {
+        this.text.visible = value
+      }
+    })
+
     Object.defineProperty(this, 'value', {
       get: function () {
         return this.text.text

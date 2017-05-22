@@ -34,6 +34,24 @@ export class DisplayObject extends Element {
       }
     })
 
+    Object.defineProperty(this, 'visible', {
+      get: function () {
+        return this.container.displayGroup.visible
+      },
+      set: function (value) {
+        this.container.displayGroup.visible = value
+      }
+    })
+
+    Object.defineProperty(this, 'alpha', {
+      get: function () {
+        return this.container.displayGroup.alpha
+      },
+      set: function (value) {
+        this.container.displayGroup.alpha = value
+      }
+    })
+
     Object.defineProperty(this, 'inputEnabled', {
       get: function () {
         return this.sprite.inputEnabled
