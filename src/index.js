@@ -5,7 +5,7 @@ import { CheckboxRenderer } from './Element/Renderer/CheckboxRenderer'
 import Container from './Container/Container'
 import { Panel } from './Element/Panel'
 import { Button } from './Element/Button'
-import { Text } from './Element/Text'
+import { TextObj } from './Element/Text'
 import { DisplayObject } from './Element/DisplayObject'
 // import { Slider } from './Element/Slider'
 import { TextField } from './Element/TextField'
@@ -20,7 +20,7 @@ export default class SlickUI {
     this.Container = Container
     this.Panel = Panel
     this.Button = Button
-    this.Text = Text
+    this.Text = TextObj
     this.DisplayObject = DisplayObject
     this.Checkbox = Checkbox
     this.TextField = TextField

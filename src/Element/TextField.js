@@ -1,6 +1,6 @@
 import Phaser from 'phaser'
 import Container from '../Container/Container'
-import Text from './Text'
+import {TextObj} from './Text'
 
 export class TextField {
   constructor (game, x, y, width, height, maxChars) {
@@ -145,7 +145,7 @@ export class TextField {
       }
     }, this) */
 
-    this.text = this.add(new Text(this.game, 8, 0, 'A')) // We put in a character to center it correctly
+    this.text = this.add(new TextObj(this.game, 8, 0, 'A')) // We put in a character to center it correctly
     this.text.centerVertically()
     this.text.text.text = this.value
 

@@ -1,5 +1,5 @@
 import Container from '../Container/Container'
-export default class Text {
+export class TextObj {
 
   constructor (game, x, y, value, size, font, width, height) {
     this.game = game
