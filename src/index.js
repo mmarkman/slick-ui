@@ -2,12 +2,13 @@
 import { ButtonRenderer } from './Element/Renderer/ButtonRenderer'
 import { PanelRenderer } from './Element/Renderer/PanelRenderer'
 import { CheckboxRenderer } from './Element/Renderer/CheckboxRenderer'
+import { SliderRenderer } from './Element/Renderer/SliderRenderer'
 import Container from './Container/Container'
 import { Panel } from './Element/Panel'
 import { Button } from './Element/Button'
 import { TextObj } from './Element/Text'
 import { DisplayObject } from './Element/DisplayObject'
-// import { Slider } from './Element/Slider'
+import { Slider } from './Element/Slider'
 import { TextField } from './Element/TextField'
 import { Checkbox } from './Element/Checkbox'
 import { TextFieldRenderer } from './Element/Renderer/TextFieldRenderer'
@@ -24,14 +25,15 @@ export default class SlickUI {
     this.DisplayObject = DisplayObject
     this.Checkbox = Checkbox
     this.TextField = TextField
-    // this.Slider = Slider
+    this.Slider = Slider
 
     this.game = game
     this.defaultRenderer = {
       'button': new ButtonRenderer(game),
       'panel': new PanelRenderer(game),
       'checkbox': new CheckboxRenderer(game),
-      'text_field': new TextFieldRenderer(game)
+      'text_field': new TextFieldRenderer(game),
+      'slider': new SliderRenderer(game)
 
       /*,
             "checkbox": "SlickUI.Element.Renderer.CheckboxRenderer",

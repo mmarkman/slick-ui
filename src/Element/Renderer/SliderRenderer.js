@@ -10,7 +10,6 @@ export class SliderRenderer {
      * @returns Array (0: base; 1: handle off; 2: handle on)
      */
   render (size, vertical) {
-
     var spriteBase = this.game.make.sprite(0, 0, 'slick-ui-slider_base')
     var spriteEnd = this.game.make.sprite(0, 0, 'slick-ui-slider_end')
 
