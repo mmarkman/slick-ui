@@ -3,15 +3,15 @@ import Phaser from 'phaser'
 import Container from '../Container/Container'
 export class DisplayObject extends Element {
 
-  constructor (x, y, displayObject, width, height) {
-    super()
+  constructor (game, x, y, displayObject, width, height) {
+    super(game)
     this._x = x
     this._y = y
     this._offsetX = x
     this._offsetY = y
     this.displayObject = displayObject
     this.container = null
-    init()
+    // init()
     this._width = width
     this._height = height
     Object.defineProperty(this, 'x', {

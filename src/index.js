@@ -6,6 +6,8 @@ import Container from './Container/Container'
 import { Panel } from './Element/Panel'
 import { Button } from './Element/Button'
 import { Text } from './Element/Text'
+import { DisplayObject } from './Element/DisplayObject'
+import { Checkbox } from './Element/Checkbox'
 
 export default class SlickUI {
 
@@ -16,6 +18,8 @@ export default class SlickUI {
     this.Panel = Panel
     this.Button = Button
     this.Text = Text
+    this.DisplayObject = DisplayObject
+    this.Checkbox = Checkbox
 
     this.game = game
     this.defaultRenderer = {

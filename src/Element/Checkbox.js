@@ -2,13 +2,24 @@ import Element from './Element'
 
 export class Checkbox extends Element {
 
-  constructor (x, y, type) {
-    super()
+  static get TYPE_CHECKBOX () {
+    return 0
+  }
+  static get TYPE_RADIO () {
+    return 1
+  }
+  static get TYPE_CROSS () {
+    return 2
+  }
+
+  constructor (game, x, y, type) {
+    super(game)
 
     // some constants
+    /*
     this.TYPE_CHECKBOX = 0
     this.TYPE_RADIO = 1
-    this.TYPE_CROSS = 2
+    this.TYPE_CROSS = 2 */
 
     this._x = x
     this._y = y

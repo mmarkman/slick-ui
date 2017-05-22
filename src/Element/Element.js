@@ -1,30 +1,7 @@
 export default class Element {
 
-  constructor () {
-    Object.defineProperty(this, 'x', {
-      get: this.getX,
-      set: this.setX
-    })
-    Object.defineProperty(this, 'y', {
-      get: this.getY,
-      set: this.setY
-    })
-    Object.defineProperty(this, 'visible', {
-      get: this.getY,
-      set: this.setY
-    })
-    Object.defineProperty(this, 'alpha', {
-      get: this.getAlpha,
-      set: this.setAlpha
-    })
-    Object.defineProperty(this, 'width', {
-      get: this.getWidth,
-      set: this.setWidth
-    })
-    Object.defineProperty(this, 'height', {
-      get: this.getHeight,
-      set: this.setHeight
-    })
+  constructor (game) {
+    this.game = game
   }
 
   getX () {
@@ -62,22 +39,30 @@ export default class Element {
     return this.container.width
   }
   setWidth (value) {
-    var theme = this.container.root.game.cache.getJSON('slick-ui-theme')
+    var theme = this.game.cache.getJSON('slick-ui-theme')
     this._width = Math.round(value + theme.button['border-x'])
-    this.sprite.destroy()
+    if (this.sprite) {
+      this.sprite.destroy()
+    }
     this.init()
-    this.container.displayGroup.sendToBack(this.sprite)
+    if (this.container) {
+      this.container.displayGroup.sendToBack(this.sprite)
+    }
   }
 
   getHeight () {
     return this.container.height
   }
   setHeight (value) {
-    var theme = this.container.root.game.cache.getJSON('slick-ui-theme')
+    var theme = this.game.cache.getJSON('slick-ui-theme')
     this._height = Math.round(value + theme.button['border-y'])
-    this.sprite.destroy()
+    if (this.sprite) {
+      this.sprite.destroy()
+    }
     this.init()
-    this.container.displayGroup.sendToBack(this.sprite)
+    if (this.container) {
+      this.container.displayGroup.sendToBack(this.sprite)
+    }
   }
 
 }

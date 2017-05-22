@@ -2,8 +2,8 @@ import Container from '../Container/Container'
 import Element from '../Element/Element'
 export class Button extends Element {
 
-  constructor (x, y, width, height) {
-    super()
+  constructor (game, x, y, width, height) {
+    super(game)
     this._x = x
     this._y = y
     this._offsetX = x

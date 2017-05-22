@@ -2,8 +2,9 @@ import Element from '../Element/Element'
 import Container from '../Container/Container'
 export class Text extends Element {
 
-  constructor (x, y, value, size, font, width, height) {
-    super()
+  constructor (game, x, y, value, size, font, width, height) {
+    super(game)
+
     this._x = x
     this._y = y
     this._value = value
@@ -81,7 +82,7 @@ export class Text extends Element {
     }
     x += this.container.x
     y += this.container.y
-    this.text = this.container.root.game.make.bitmapText(x, y, this.font, this._value, this.size)
+    this.text = this.game.make.bitmapText(x, y, this.font, this._value, this.size)
     this.text.maxWidth = width
     this.text.maxHeight = height
     this.container.displayGroup.add(this.text)
@@ -92,13 +93,14 @@ export class Text extends Element {
      * Initialize text
      */
   init () {
-    var theme = this.container.root.game.cache.getJSON('slick-ui-theme')
+    var theme = this.game.cache.getJSON('slick-ui-theme')
 
     if (typeof this.font === 'undefined') {
       this.font = Object.keys(theme.fonts)[Object.keys(theme.fonts).length - 1]
     }
-
-    this.reset(this._x, this._y)
+    if (this.container) {
+      this.reset(this._x, this._y)
+    }
   };
 
     /**
