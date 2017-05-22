@@ -3,8 +3,9 @@ import Container from '../Container/Container'
 import {TextObj} from './Text'
 
 export class TextField {
-  constructor (game, x, y, width, height, maxChars) {
+  constructor (game, x, y, width, height, maxChars, divID) {
     this.game = game
+    this.divID = divID
     if (typeof maxChars === 'undefined') {
       maxChars = 7
     }
@@ -122,6 +123,7 @@ export class TextField {
 
     var input = document.createElement('INPUT')
     input.setAttribute('type', 'text')
+    input.setAttribute('class', 'hiddenTextBox')
     input.oninput = () => {
       this.value = input.value
       this.text.text.text = this.value
@@ -132,7 +134,13 @@ export class TextField {
     input.alpha = 0
     input.style.width = 0
     input.style.height = 0
-    document.body.appendChild(input)
+    if (this.divID) {
+      let target = document.getElementById(this.divID)
+      // target.insertBefore(input, target.firstChild)
+      document.body.insertBefore(input, target)
+    } else {
+      document.body.appendChild(input)
+    }
     this.sprite.events.onInputDown.add(() => {
       input.focus()
     })
