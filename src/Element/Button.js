@@ -128,18 +128,5 @@ export class Button extends Element {
   add (element) {
     return this.container.add(element)
   }
-  setWidth (value) {
-    var theme = this.container.root.game.cache.getJSON('slick-ui-theme')
-    this._width = Math.round(value + theme.button['border-x'])
-    this.sprite.destroy()
-    this.init()
-    this.container.displayGroup.sendToBack(this.sprite)
-  }
-  setHeight (value) {
-    var theme = this.container.root.game.cache.getJSON('slick-ui-theme')
-    this._height = Math.round(value + theme.button['border-y'])
-    this.sprite.destroy()
-    this.init()
-    this.container.displayGroup.sendToBack(this.sprite)
-  }
+
 }

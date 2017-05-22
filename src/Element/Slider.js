@@ -1,151 +1,135 @@
-SlickUI.namespace('Element');
-
-/**
- * Create a slider to control defined values
- *
- * @author Richard Snijders <richard@fizz.nl>
- * @param x
- * @param y
- * @param size
- * @param value
- * @param vertical
- * @constructor
- */
-SlickUI.Element.Slider = function (x, y, size, value, vertical) {
-    this._x = x;
-    this._y = y;
-    this._size = size;
-    this._value = value;
-    this._vertical = true === vertical;
-    this.container = null;
-    if(typeof value == 'undefined') {
-        this._value = 1;
+import Container from '../Container/Container'
+import Phaser from 'phaser'
+export class Slider {
+  constructor (game, x, y, size, value, vertical) {
+    this.game = game
+    this._x = x
+    this._y = y
+    this._size = size
+    this._value = value
+    this._vertical = vertical === true
+    this.container = null
+    if (typeof value === 'undefined') {
+      this._value = 1
     }
-    if(this._vertical) {
-        this._value = Math.abs(this._value - 1);
+    if (this._vertical) {
+      this._value = Math.abs(this._value - 1)
     }
-};
+    Object.defineProperty(this, 'x', {
+      get: function () {
+        return this.displayGroup.x + this._x
+      },
+      set: function (value) {
+        this.displayGroup.x = value - this._x
+      }
+    })
 
-/**
- * Internal Container handling.
- * 
- * @param container
- */
-SlickUI.Element.Slider.prototype.setContainer = function (container) {
-    this.container = container;
-};
+    Object.defineProperty(this, 'y', {
+      get: function () {
+        return this.displayGroup.y + this._y
+      },
+      set: function (value) {
+        this.displayGroup.y = value - this._y
+      }
+    })
 
-/**
- * Adds the slider and makes it interactable
- */
-SlickUI.Element.Slider.prototype.init = function() {
-    var theme = this.container.root.game.cache.getJSON('slick-ui-theme');
-    this.onDragStart = new Phaser.Signal();
-    this.onDrag = new Phaser.Signal();
-    this.onDragStop = new Phaser.Signal();
-    this.displayGroup = game.add.group();
+    Object.defineProperty(this, 'alpha', {
+      get: function () {
+        return this.displayGroup.alpha
+      },
+      set: function (value) {
+        this.displayGroup.alpha = value
+      }
+    })
 
-    var x = this.container.x + this._x;
-    var y = this.container.y + this._y;
-    var position = this._vertical ? y : x;
-    var modulatingVariable = this._vertical ? 'y' : 'x';
-    var size = Math.min(this.container.width - this._x, this._size);
-    if(this._vertical) {
-        size = Math.min(this.container.height - this._y, this._size);
+    Object.defineProperty(this, 'visible', {
+      get: function () {
+        return this.displayGroup.visible
+      },
+      set: function (value) {
+        this.displayGroup.visible = value
+      }
+    })
+  };
+
+    /**
+     * Internal Container handling.
+     *
+     * @param container
+     */
+  setContainer (container) {
+    this.container = new Container(container)
+  }
+
+    /**
+     * Adds the slider and makes it interactable
+     */
+  init () {
+    this.onDragStart = new Phaser.Signal()
+    this.onDrag = new Phaser.Signal()
+    this.onDragStop = new Phaser.Signal()
+    this.displayGroup = this.game.add.group()
+
+    var x = this.container.x + this._x
+    var y = this.container.y + this._y
+    var position = this._vertical ? y : x
+    var modulatingVariable = this._vertical ? 'y' : 'x'
+    var size = Math.min(this.container.width - this._x, this._size)
+    if (this._vertical) {
+      size = Math.min(this.container.height - this._y, this._size)
     }
-    var initialPosition = Math.min(1,Math.max(0,this._value)) * size + position;
+    var initialPosition = Math.min(1, Math.max(0, this._value)) * size + position
 
-    var renderedSprites = this.container.root.getRenderer('slider').render(size, this._vertical);
-    var sprite_base = renderedSprites[0];
-    var handle_off = renderedSprites[1];
-    var handle_on = renderedSprites[2];
-    sprite_base.x = x;
-    sprite_base.y = y;
+    var renderedSprites = this.container.root.getRenderer('slider').render(size, this._vertical)
+    var spriteBase = renderedSprites[0]
+    var handleOff = renderedSprites[1]
+    var handleOn = renderedSprites[2]
+    spriteBase.x = x
+    spriteBase.y = y
 
-    var sprite_handle = this.container.root.game.make.sprite(this._vertical ? x : initialPosition, this._vertical ? initialPosition : y, handle_off.texture);
-    sprite_handle.anchor.setTo(0.5);
+    var spriteHandle = this.container.root.game.make.sprite(this._vertical ? x : initialPosition, this._vertical ? initialPosition : y, handleOff.texture)
+    spriteHandle.anchor.setTo(0.5)
 
-    if(this._vertical) {
-        sprite_handle.angle = 270;
+    if (this._vertical) {
+      spriteHandle.angle = 270
     }
-    sprite_base.fixedToCamera = true;
-    sprite_handle.fixedToCamera = true;
-    sprite_handle.inputEnabled = true;
-    sprite_handle.input.useHandCursor = true;
-    var dragging = false;
+    spriteBase.fixedToCamera = true
+    spriteHandle.fixedToCamera = true
+    spriteHandle.inputEnabled = true
+    spriteHandle.input.useHandCursor = true
+    var dragging = false
 
-    var getValue = function() {
-        var value = (sprite_handle.cameraOffset[modulatingVariable] - position) / size;
-        if(this._vertical) {
-            value = Math.abs(value - 1);
-        }
-        return value;
-    };
-
-    sprite_handle.events.onInputDown.add(function () {
-        sprite_handle.loadTexture(handle_on.texture);
-        dragging = true;
-        this.onDragStart.dispatch(getValue.apply(this));
-    }, this);
-    sprite_handle.events.onInputUp.add(function () {
-        sprite_handle.loadTexture(handle_off.texture);
-        dragging = false;
-        this.onDragStop.dispatch(getValue.apply(this));
-    }, this);
-
-    this.container.root.game.input.addMoveCallback(function (pointer, pointer_x, pointer_y) {
-        if(!dragging) {
-            return;
-        }
-        var _pos = (this._vertical ? pointer_y : pointer_x) - this.displayGroup[modulatingVariable];
-        sprite_handle.cameraOffset[modulatingVariable] = Math.min(position + size, Math.max(position, _pos - this.container.displayGroup[modulatingVariable]));
-        this.onDrag.dispatch(getValue.apply(this));
-    }, this);
-
-    this.displayGroup.add(sprite_base);
-    this.displayGroup.add(sprite_handle);
-    this.container.displayGroup.add(this.displayGroup);
-};
-
-
-/* ------------------------------- */
-
-
-/**
- * Setters / getters
- */
-Object.defineProperty(SlickUI.Element.Slider.prototype, 'x', {
-    get: function() {
-        return this.displayGroup.x + this._x;
-    },
-    set: function(value) {
-        this.displayGroup.x = value - this._x;
+    var getValue = function () {
+      var value = (spriteHandle.cameraOffset[modulatingVariable] - position) / size
+      if (this._vertical) {
+        value = Math.abs(value - 1)
+      }
+      return value
     }
-});
 
-Object.defineProperty(SlickUI.Element.Slider.prototype, 'y', {
-    get: function() {
-        return this.displayGroup.y + this._y;
-    },
-    set: function(value) {
-        this.displayGroup.y = value - this._y;
-    }
-});
+    spriteHandle.events.onInputDown.add(function () {
+      spriteHandle.loadTexture(handleOn.texture)
+      dragging = true
+      this.onDragStart.dispatch(getValue.apply(this))
+    }, this)
+    spriteHandle.events.onInputUp.add(function () {
+      spriteHandle.loadTexture(handleOff.texture)
+      dragging = false
+      this.onDragStop.dispatch(getValue.apply(this))
+    }, this)
 
-Object.defineProperty(SlickUI.Element.Slider.prototype, 'alpha', {
-    get: function() {
-        return this.displayGroup.alpha;
-    },
-    set: function(value) {
-        this.displayGroup.alpha = value;
-    }
-});
+    this.container.root.game.input.addMoveCallback(function (pointer, pointerX, pointerY) {
+      if (!dragging) {
+        return
+      }
+      var _pos = (this._vertical ? pointerY : pointerX) - this.displayGroup[modulatingVariable]
+      spriteHandle.cameraOffset[modulatingVariable] = Math.min(position + size, Math.max(position, _pos - this.container.displayGroup[modulatingVariable]))
+      this.onDrag.dispatch(getValue.apply(this))
+    }, this)
 
-Object.defineProperty(SlickUI.Element.Slider.prototype, 'visible', {
-    get: function() {
-        return this.displayGroup.visible;
-    },
-    set: function(value) {
-        this.displayGroup.visible = value;
-    }
-});
+    this.displayGroup.add(spriteBase)
+    this.displayGroup.add(spriteHandle)
+    this.container.displayGroup.add(this.displayGroup)
+  };
+
+}
