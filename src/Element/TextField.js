@@ -115,57 +115,29 @@ export class TextField {
     this._offsetX = x
     this._offsetY = y
     this.sprite.fixedToCamera = true
-
-    /* var hover = false
-    this.sprite.events.onInputOver.add(function () { hover = true }, this)
-    this.sprite.events.onInputOut.add(function () { hover = false }, this) */
-
-/*    var kb = new SlickUI.Keyboard.Keyboard(this.container.root, Object.keys(theme.fonts)[Object.keys(theme.fonts).length - 1])
-    kb.group.cameraOffset.y = this.container.root.game.height
-    kb.group.visible = false
-    var kbAnimating = false
-
+    var input = document.createElement('INPUT')
+    input.setAttribute('type', 'text')
+    input.onkeyPress = function () {
+      this.updateText(input.value)
+    }
+    input.alpha = 0
+    input.style.width = 0
+    input.style.height = 0
+    document.body.appendChild(input)
     this.sprite.events.onInputDown.add(function () {
-      if (kbAnimating) {
-        return
-      }
-      kbAnimating = true
-      if (!kb.group.visible) {
-        kb.group.visible = true
-        this.container.root.game.add.tween(kb.group.cameraOffset).to({y: this.container.root.game.height - kb.height}, 500, Phaser.Easing.Exponential.Out, true).onComplete.add(function () {
-          kbAnimating = false
-        })
-        this.events.onToggle.dispatch(true)
-      } else {
-        this.container.root.game.add.tween(kb.group.cameraOffset).to({y: this.container.root.game.height}, 500, Phaser.Easing.Exponential.Out, true).onComplete.add(function () {
-          kbAnimating = false
-          kb.group.visible = false
-        })
-        this.events.onToggle.dispatch(false)
-      }
-    }, this) */
+      input.focus()
+    })
 
     this.text = this.add(new TextObj(this.game, 8, 0, 'A')) // We put in a character to center it correctly
     this.text.centerVertically()
     this.text.text.text = this.value
-
-    /* kb.events.onKeyPress.add(function (key) {
-      if (key == 'DEL') {
-        this.value = this.value.substr(0, this.value.length - 1)
-      } else {
-        this.value = (this.value + key).substr(0, this.maxChars)
-      }
-      this.text.text.text = this.value
-
-      this.events.onKeyPress.dispatch(key)
-    }, this)
-
-    kb.events.onOK.add(function () {
-      this.sprite.events.onInputDown.dispatch()
-
-      this.events.onOK.dispatch()
-    }, this) */
   };
+
+  updateText (textVal) {
+    this.value = textVal
+    this.text.text.text = this.value
+    this.events.onKeyPress.dispatch(this.value)
+  }
 
   add (element) {
     return this.container.add(element)
