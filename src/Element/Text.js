@@ -1,10 +1,8 @@
-import Element from '../Element/Element'
 import Container from '../Container/Container'
-export class Text extends Element {
+export default class Text {
 
   constructor (game, x, y, value, size, font, width, height) {
-    super(game)
-
+    this.game = game
     this._x = x
     this._y = y
     this._value = value
