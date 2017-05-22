@@ -14,7 +14,7 @@
     var game = new Phaser.Game(650, 350, Phaser.CANVAS, '', { preload: preload, create: create, update: update });
     var slickUI;
     function preload() {
-        slickUI = game.plugins.add(Phaser.Plugin.SlickUI);
+        slickUI = new SlickUI.default(game);
         game.load.image('menu-button', 'assets/ui/menu.png');
         game.load.image('backdrop', 'assets/backdrop.png');
         slickUI.load('assets/ui/kenney/kenney.json');
@@ -22,16 +22,16 @@
     function create() {
         game.add.sprite(0,-125,'backdrop');
         var button, panel, menuButton;
-        slickUI.add(panel = new SlickUI.Element.Panel(game.width - 156, 8, 150, game.height - 16));
-        panel.add(new SlickUI.Element.Text(10,0, "Menu")).centerHorizontally().text.alpha = 0.5;
-        panel.add(button = new SlickUI.Element.Button(0,game.height - 166, 140, 80)).events.onInputUp.add(function () {
+        slickUI.add(panel = slickUI.Panel(game.width - 156, 8, 150, game.height - 16));
+        panel.add(new SlickUI.Text(10,0, "Menu")).centerHorizontally().text.alpha = 0.5;
+        panel.add(button = new SlickUI.Button(0,game.height - 166, 140, 80)).events.onInputUp.add(function () {
             console.log('Clicked save game');
         });
 
-        button.add(new SlickUI.Element.Text(0,0, "Save game")).center();
+        button.add(new SlickUI.Text(0,0, "Save game")).center();
 
-        panel.add(button = new SlickUI.Element.Button(0,game.height - 76, 140, 40));
-        button.add(new SlickUI.Element.Text(0,0, "Close")).center();
+        panel.add(button = new SlickUI.Button(0,game.height - 76, 140, 40));
+        button.add(new SlickUI.Text(0,0, "Close")).center();
 
         panel.visible = false;
         var basePosition = panel.x;

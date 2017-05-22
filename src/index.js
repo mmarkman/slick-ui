@@ -2,6 +2,8 @@
 import { ButtonRenderer } from './Element/Renderer/ButtonRenderer'
 import Container from './Container/Container'
 import { Panel } from './Element/Panel'
+import { Button } from './Element/Button'
+import { Text } from './Element/Text'
 
 export default class SlickUI {
 
@@ -10,6 +12,8 @@ export default class SlickUI {
 
     this.Container = Container
     this.Panel = Panel
+    this.Button = Button
+    this.Text = Text
 
     this.game = game
     this.defaultRenderer = {
