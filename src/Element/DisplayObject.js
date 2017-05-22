@@ -107,7 +107,7 @@ export class DisplayObject extends Element {
     this.container.height = Math.min(this.container.parent.height - this._y, this._height)
 
     if (!(this.displayObject instanceof Phaser.Sprite)) {
-      this.sprite = this.container.root.game.make.sprite(x, y, this.displayObject)
+      this.sprite = this.container.root.game.make.sprite(x, y, this.displayObject.key)
     } else {
       this.sprite = this.displayObject
     }
