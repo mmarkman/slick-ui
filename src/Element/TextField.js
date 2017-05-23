@@ -3,9 +3,10 @@ import Container from '../Container/Container'
 import {TextObj} from './Text'
 
 export class TextField {
-  constructor (game, x, y, width, height, maxChars, divID) {
+  constructor (game, x, y, width, height, maxChars, targetDivID, textFieldID) {
     this.game = game
-    this.divID = divID
+    this.targetDivID = targetDivID
+    this.textFieldID = textFieldID
     if (typeof maxChars === 'undefined') {
       maxChars = 7
     }
@@ -22,7 +23,8 @@ export class TextField {
     this.events = {
       onOK: new Phaser.Signal(),
       onToggle: new Phaser.Signal(),
-      onKeyPress: new Phaser.Signal()
+      onKeyPress: new Phaser.Signal(),
+      onKeyboard: new Phaser.Signal()
     }
 
     Object.defineProperty(this, 'x', {
@@ -128,22 +130,50 @@ export class TextField {
       this.value = input.value
       this.text.text.text = this.value
       this.events.onKeyPress.dispatch(this.value)
-      input.blur()
-      input.focus()
+      /* input.blur()
+      input.focus() */
+    }
+    input.onblur = () => {
+      this.events.onToggle.dispatch(false)
+      this.events.onKeyboard.dispatch(false)
+    }
+    input.onsubmit = () => {
+      this.events.onOK.dispatch()
     }
     input.alpha = 0
     input.style.width = 0
     input.style.height = 0
-    if (this.divID) {
-      let target = document.getElementById(this.divID)
+    if (this.textFieldID) {
+      input.setAttribute('id', this.textFieldID)
+    }
+
+    if (this.targetDivID) {
+      let target = document.getElementById(this.targetDivID)
       // target.insertBefore(input, target.firstChild)
-      document.body.insertBefore(input, target)
+      var containerDiv = document.createElement('div')
+      containerDiv.className = 'textFieldContainer'
+      containerDiv.appendChild(input)
+      document.body.insertBefore(containerDiv, target)
     } else {
       document.body.appendChild(input)
     }
-    this.sprite.events.onInputDown.add(() => {
+    /* this.game.input.onDown.add((pointer) => {
+      if (!pointer.isMouse) {
+        this.events.onKeyboard.dispatch(true)
+      }
+    }) */
+    this.sprite.events.onInputDown.add((event) => {
+      console.log(event)
+      if (this.sprite.input.pointerDown) {
+        this.events.onKeyboard.dispatch(true)
+      }
+      this.events.onToggle.dispatch(true)
       input.focus()
     })
+    this.inputElement = input
+    this.game.canvas.addEventListener('touchstart', (event) => {
+      this.game.canvas.focus()
+    }, false)
 
     this.text = this.add(new TextObj(this.game, 8, 0, 'A')) // We put in a character to center it correctly
     this.text.centerVertically()
