@@ -129,7 +129,15 @@ export class DisplayObject extends Element {
     } else {
       this.sprite = this.displayObject
     }
-    this.container.displayGroup.add(this.sprite)
+    if (this.width !== undefined && this.height !== undefined) {
+      this.sprite.width = this.width
+      this.sprite.height = this.height
+      this.container.displayGroup.add(this.sprite)
+      this.container.displayGroup.height = this.height
+      this.container.displayGroup.width = this.width
+    } else {
+      this.container.displayGroup.add(this.sprite)
+    }
     this.sprite.x = x
     this.sprite.y = y
     this._offsetX = x
