@@ -11,88 +11,85 @@ export class Button extends Element {
     this._width = width
     this._height = height
     this.container = null
-    Object.defineProperty(this, 'x', {
-      get: function () {
-        return this._x - this.container.parent.x
-      },
-      set: function (value) {
-        this._x = value
-        this.container.displayGroup.x = this.container.parent.x + value - this._offsetX
-      }
-    })
+    this.themeLoaded = false
+  }
 
-    Object.defineProperty(this, 'y', {
-      get: function () {
-        return this._y - this.container.parent.y
-      },
-      set: function (value) {
-        this._y = value
-        this.container.displayGroup.y = this.container.parent.y + value - this._offsetY
-      }
-    })
+  loadTheme () {
+    var theme = this.container.root.game.cache.getJSON('slick-ui-theme')
+    this.borderSpacingX = Math.round(theme.button['border-x'] / 2)
+    this.borderSpacingY = Math.round(theme.button['border-y'] / 2)
+    this.borderWidthX = theme.button['border-x']
+    this.borderWidthY = theme.button['border-y']
+  }
 
-    Object.defineProperty(this, 'visible', {
-      get: function () {
-        return this.container.displayGroup.visible
-      },
-      set: function (value) {
-        this.container.displayGroup.visible = value
-      }
-    })
+  get x () {
+    return this._x
+  }
+  set x (value) {
+    this._x = value
+    this.container.displayGroup.x = value - this.container.x + this.container.parent.x + this.borderSpacingX // not-needed???
+  }
+  get y () {
+    return this._y
+  }
+  set y (value) {
+    this._y = value
+    this.container.displayGroup.y = this._y - this.container.y + this.container.parent.y + this.borderSpacingY
+  }
 
-    Object.defineProperty(this, 'alpha', {
-      get: function () {
-        return this.container.displayGroup.alpha
-      },
-      set: function (value) {
-        this.container.displayGroup.alpha = value
-      }
-    })
+  get visible () {
+    return this.container.displayGroup.visible
+  }
+  set visible (value) {
+    this.container.displayGroup.visible = value
+  }
 
-// Try to avoid changing the width or height of elements.
+  get alpha () {
+    return this.container.displayGroup.alpha
+  }
+  set alpha (value) {
+    this.container.displayGroup.alpha = value
+  }
 
-    Object.defineProperty(this, 'width', {
-      get: function () {
-        return this.container.width
-      },
-      set: function (value) {
-        var theme = this.container.root.game.cache.getJSON('slick-ui-theme')
-        this._width = Math.round(value + theme.button['border-x'])
-        this.sprite.destroy()
-        this.init()
-        this.container.displayGroup.sendToBack(this.sprite)
-      }
-    })
+  get width () {
+    return this.container.width
+  }
+  set width (value) {
+    var theme = this.container.root.game.cache.getJSON('slick-ui-theme')
+    this._width = Math.round(value + theme.button['border-x'])
+    this.sprite.destroy()
+    this.init()
+    this.container.displayGroup.sendToBack(this.sprite)
+  }
 
-    Object.defineProperty(this, 'height', {
-      get: function () {
-        return this.container.height
-      },
-      set: function (value) {
-        var theme = this.container.root.game.cache.getJSON('slick-ui-theme')
-        this._height = Math.round(value + theme.button['border-y'])
-        this.sprite.destroy()
-        this.init()
-        this.container.displayGroup.sendToBack(this.sprite)
-      }
-    })
-  };
+  get height () {
+    return this.container.height
+  }
+  set height (value) {
+    var theme = this.container.root.game.cache.getJSON('slick-ui-theme')
+    this._height = Math.round(value + theme.button['border-y'])
+    this.sprite.destroy()
+    this.init()
+    this.container.displayGroup.sendToBack(this.sprite)
+  }
 
   setContainer (container) {
     this.container = new Container(container)
+    if (!this.themeLoaded) {
+      this.themeLoaded = true
+      this.loadTheme()
+    }
   }
 
   init () {
-    var theme = this.container.root.game.cache.getJSON('slick-ui-theme')
-
     var x = this.container.x = this.container.parent.x + this._x
     var y = this.container.y = this.container.parent.y + this._y
     var width = this.container.width = Math.min(this.container.parent.width - this._x, this._width)
     var height = this.container.height = Math.min(this.container.parent.height - this._y, this._height)
-    this.container.x += Math.round(theme.button['border-x'] / 2)
-    this.container.y += Math.round(theme.button['border-y'] / 2)
-    this.container.width -= theme.button['border-x']
-    this.container.height -= theme.button['border-y']
+    this.container.x += this.borderSpacingX
+    this.container.y += this.borderSpacingY
+    this.container.width -= this.borderWidthX
+    this.container.height -= this.borderWidthY
 
     var renderedSprites = this.container.root.getRenderer('button').render(width, height)
     this.spriteOff = renderedSprites[0]

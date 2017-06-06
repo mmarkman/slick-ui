@@ -22,6 +22,14 @@
   "fonts": {
     "minecraftia": ["fonts/minecraftia-black.png", "fonts/minecraftia.xml"]
   },
+  "color": {
+    "border": "#999999",
+    "background": "rgba(0, 0, 0, 0.5)"
+  },
+  "border": {
+    "width": 10,
+    "radius": 10
+  },
   "button": {
     "border-x": 8,
     "border-y": 8
@@ -31,6 +39,7 @@
     "border-y": 8
   },
   "panel": {
+    "borderWidth": 10,
     "border-x": 10,
     "border-y": 10
   }

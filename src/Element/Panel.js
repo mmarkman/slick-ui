@@ -11,6 +11,8 @@ export class Panel extends Element {
     this._width = width
     this._height = height
     this.container = null
+    this.themeLoaded = false
+    /*
     Object.defineProperty(this, 'x', {
       get: function () {
         return this._x - this.container.parent.x
@@ -29,7 +31,7 @@ export class Panel extends Element {
         this._y = value
         this.container.displayGroup.y = this.container.parent.y + value - this._offsetY
       }
-    })
+    }) */
 
     Object.defineProperty(this, 'visible', {
       get: function () {
@@ -48,38 +50,58 @@ export class Panel extends Element {
         this.container.displayGroup.alpha = value
       }
     })
+  }
 
-// Try to avoid changing the width or height of elements.
+  get x () {
+    return this._x
+  }
+  set x (value) {
+    this._x = value
+    this.container.displayGroup.x = value - this.container.x + this.container.parent.x + this.borderSpacingX
+    // this.container.parent.x + this._x // + this.borderSpacingX not-needed???
+  }
+  get y () {
+    return this._y
+  }
+  set y (value) {
+    this._y = value
+    this.container.displayGroup.y = this._y - this.container.y + this.container.parent.y + this.borderSpacingY
+  }
 
-    Object.defineProperty(this, 'width', {
-      get: function () {
-        return this.container.width
-      },
-      set: function (value) {
-        var theme = this.container.root.game.cache.getJSON('slick-ui-theme')
-        this._width = Math.round(value + theme.panel['border-x'])
-        this._sprite.destroy()
-        this.init()
-        this.container.displayGroup.sendToBack(this._sprite)
-      }
-    })
+  get width () {
+    return this.container.width
+  }
 
-    Object.defineProperty(this, 'height', {
-      get: function () {
-        return this.container.height
-      },
-      set: function (value) {
-        var theme = this.container.root.game.cache.getJSON('slick-ui-theme')
-        this._height = Math.round(value + theme.panel['border-y'])
-        this._sprite.destroy()
-        this.init()
-        this.container.displayGroup.sendToBack(this._sprite)
-      }
-    })
+  set width (value) {
+    var theme = this.container.root.game.cache.getJSON('slick-ui-theme')
+    this._width = Math.round(value + theme.panel['border-x'])
+    this.resetSprites()
+  }
+
+  get height () {
+    return this.container.height
+  }
+
+  set height (value) {
+    var theme = this.container.root.game.cache.getJSON('slick-ui-theme')
+    this._height = Math.round(value + theme.panel['border-y'])
+    this.resetSprites()
+  }
+
+  loadTheme () {
+    var theme = this.container.root.game.cache.getJSON('slick-ui-theme')
+    this.borderSpacingX = Math.round(theme.button['border-x'] / 2)
+    this.borderSpacingY = Math.round(theme.button['border-y'] / 2)
+    this.borderWidthX = theme.button['border-x']
+    this.borderWidthY = theme.button['border-y']
   }
 
   setContainer (container) {
     this.container = new Container(container)
+    if (!this.themeLoaded) {
+      this.themeLoaded = true
+      this.loadTheme()
+    }
   }
 
   init () {
@@ -94,17 +116,21 @@ export class Panel extends Element {
     this.container.width -= theme.panel['border-x']
     this.container.height -= theme.panel['border-y']
 
-    this._sprite = this.container.displayGroup.add(this.container.root.getRenderer('panel').render(width, height))
-    this._sprite.x = x
-    this._sprite.y = y
-    this._sprite.fixedToCamera = true
+    this._bodySprite = this.container.displayGroup.add(this.container.root.getRenderer('panel').renderBody(width, height))
+    this._borderSprite = this.container.displayGroup.add(this.container.root.getRenderer('panel').renderBorder(width, height))
+    this._bodySprite.x = this._borderSprite.x = x
+    this._bodySprite.y = this._borderSprite.y = y
+    this._bodySprite.fixedToCamera = true
+    this._borderSprite.fixedToCamera = true
     this._offsetX = x
     this._offsetY = y
   }
 
   add (element) {
-    return this.container.add(element)
-  };
+    let retval = this.container.add(element)
+    this.container.displayGroup.bringToTop(this._borderSprite)
+    return retval
+  }
 
   destroy () {
     this.container.displayGroup.removeAll(true)
@@ -114,19 +140,23 @@ export class Panel extends Element {
     this.sprite = undefined
   }
 
+  resetSprites () {
+    this._bodySprite.destroy()
+    this._borderSprite.destroy()
+    this.init()
+    this.container.displayGroup.sendToBack(this._bodySprite)
+    this.container.displayGroup.bringToTop(this._borderSprite)
+  }
+
   setWidth (value) {
     var theme = this.container.root.game.cache.getJSON('slick-ui-theme')
     this._width = Math.round(value + theme.panel['border-x'])
-    this._sprite.destroy()
-    this.init()
-    this.container.displayGroup.sendToBack(this._sprite)
+    this.resetSprites()
   }
 
   setHeight (value) {
     var theme = this.container.root.game.cache.getJSON('slick-ui-theme')
     this._height = Math.round(value + theme.panel['border-y'])
-    this._sprite.destroy()
-    this.init()
-    this.container.displayGroup.sendToBack(this._sprite)
+    this.resetSprites()
   }
 }
