@@ -13,7 +13,6 @@ horizontal : bool: enables (true) or disables (false) horizontal scrolling
 
 /*
   TODO:
-  - hover-only mode
   - swag????
  */
 
@@ -30,6 +29,7 @@ export class ScrollPanel extends Panel {
     this.constrainToBounds = true
     this.horizontal = true
     this.vertical = true
+    this.hoverOnly = true
   }
 /*
   get x () {
@@ -82,6 +82,21 @@ export class ScrollPanel extends Panel {
     var allowY = false
     var moveX = event.deltaX * -1
     var moveY = event.deltaY * -1
+
+    if (this.hoverOnly) {
+      let cx = event.clientX
+      let cy = event.clientY
+      let minX = this.x + this.borderWidthX
+      let minY = this.Y + this.borderWidthY
+      let maxX = minX + this.width + this.borderWidthX
+      let maxY = minY + this.height + this.borderWidthY
+      if ((cx < minX) ||
+          (cx > maxX) ||
+          (cy < minY) ||
+          (cy > maxY)) {
+        return
+      }
+    }
 
     if (this.constrainToBounds) {
       if (this.horizontal) {
