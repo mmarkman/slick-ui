@@ -20,8 +20,16 @@ export class ScrollPanel extends Panel {
 
   constructor (game, x, y, width, height, innerWidth, innerHeight) {
     super(game, x, y, width, height)
-    this.innerWidth = innerWidth
-    this.innerHeight = innerHeight
+    if (innerHeight) {
+      this.innerHeight = innerHeight
+    } else {
+      this.innerHeight = height
+    }
+    if (innerWidth) {
+      this.innerWidth = innerWidth
+    } else {
+      this.innerWidth = width
+    }
     this.scrollableHeight = innerHeight - height
     this.scrollableWidth = innerWidth - width
     this.deltaX = 0

@@ -31,13 +31,17 @@ export default class Container {
      * @param element
      * @returns SlickUI.Container.Container
      */
-  add (element) {
+  add (element, childIndex) {
+    if (!childIndex) {
+      childIndex = this.children.length
+    }
     element.setContainer(this)
     if (typeof element.init === 'function') {
       element.init()
     }
     this.root.game.world.bringToTop(this.displayGroup)
-    this.children.push(element)
+
+    this.children.splice(childIndex, 0, element)
 
     return element // Allows chaining
   };
