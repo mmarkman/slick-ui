@@ -12,6 +12,7 @@ import { DisplayObject } from './Element/DisplayObject'
 import { Slider } from './Element/Slider'
 import { TextField } from './Element/TextField'
 import { Checkbox } from './Element/Checkbox'
+import { VerticalList } from './Element/VerticalList'
 import { TextFieldRenderer } from './Element/Renderer/TextFieldRenderer'
 
 export default class SlickUI {
@@ -24,6 +25,7 @@ export default class SlickUI {
     this.ScrollPanel = ScrollPanel
     this.Button = Button
     this.Text = TextObj
+    this.VerticalList = VerticalList
     this.DisplayObject = DisplayObject
     this.Checkbox = Checkbox
     this.TextField = TextField
