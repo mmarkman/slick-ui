@@ -26,15 +26,17 @@
 //        slickUI.add(panel = new slickUI.Panel(game, game.width - 156, 8, 150, game.height - 16));
         
         panel.append(innerPanel = new slickUI.Panel(game, 6, 8, 148, 40));
-        panel.append(new slickUI.Text(game, 0, 15, "Menu")).centerHorizontally().text.alpha = 0.5;
-        panel.append(button = new slickUI.Button(game, 5 ,game.height - 166, 150, 80)).events.onInputUp.add(function () {
-            console.log('Clicked save game');
-        });
-
-        button.add(new slickUI.Text(game, 0,0, "Save game")).center();
-
-        panel.add(button = new slickUI.Button(game, 5, game.height - 76, 150, 40));
-        button.add(new slickUI.Text(game, 0,0, "Close")).center();
+        innerPanel.add(new slickUI.Text(game, 6, 0, "Mkkkkkkkkkkkkkenu"));
+        panel.append(innerPanel = new slickUI.Panel(game, 6, 8, 148, 40));
+        innerPanel.add(new slickUI.Text(game, 6, 0, "Menu"));
+        panel.append(innerPanel = new slickUI.Panel(game, 6, 8, 148, 40));
+        innerPanel.add(new slickUI.Text(game, 6, 0, "Menu"));
+        panel.append(innerPanel = new slickUI.Panel(game, 6, 8, 148, 40));
+        innerPanel.add(new slickUI.Text(game, 6, 0, "Menu"));
+        panel.append(innerPanel = new slickUI.Panel(game, 6, 8, 148, 40));
+        innerPanel.add(new slickUI.Text(game, 6, 0, "Menu"));
+        panel.append(innerPanel = new slickUI.Panel(game, 6, 8, 148, 40));
+        innerPanel.add(new slickUI.Text(game, 6, 0, "Menu"));
 
         panel.visible = false;
         var basePosition = panel.x;
@@ -53,37 +55,6 @@
             });
             slickUI.container.displayGroup.bringToTop(panel.container.displayGroup);
         }, this);
-
-        button.events.onInputUp.add(function () {
-            game.add.tween(panel).to( {x: basePosition + 170}, 500, Phaser.Easing.Exponential.Out, true).onComplete.add(function () {
-                panel.visible = false;
-                panel.x -= 170;
-            });
-            menuButton.visible = true;
-        });
-
-        var cb1, cb2;
-        panel.add(cb1 = new slickUI.Checkbox(game, 5,100, slickUI.Checkbox.TYPE_RADIO));
-        cb1.events.onInputDown.add(function () {
-            if(cb1.checked && cb2.checked) {
-                cb2.checked = false;
-            }
-            if(!cb1.checked && !cb2.checked) {
-                cb1.checked = true;
-            }
-        }, this);
-
-        panel.add(cb2 = new slickUI.Checkbox(game, 60,100, slickUI.Checkbox.TYPE_RADIO));
-        cb2.events.onInputDown.add(function () {
-            if(cb1.checked && cb2.checked) {
-                cb1.checked = false;
-            }
-            if(!cb1.checked && !cb2.checked) {
-                cb2.checked = true;
-            }
-        }, this);
-
-        panel.add(new slickUI.Checkbox(game, 115,100));
     }
     function update() {
 
