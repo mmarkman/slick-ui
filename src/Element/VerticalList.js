@@ -1,5 +1,5 @@
 
-import ScrollPanel from './ScrollPanel'
+import { ScrollPanel } from './ScrollPanel'
 
 // indices are zero-based
 // 0, 1, 2, etc, i
