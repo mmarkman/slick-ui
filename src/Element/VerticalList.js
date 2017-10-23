@@ -54,7 +54,7 @@ export class VerticalList extends ScrollPanel {
   }
 
   append (item) {
-    this.addItemAtIndex(item, this.length - 1)
+    this.addItemAtIndex(item, this.length)
   }
 
   removeItemAtIndex () {
