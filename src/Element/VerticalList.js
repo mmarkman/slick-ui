@@ -34,6 +34,7 @@ export class VerticalList extends ScrollPanel {
     this.innerHeight = this.contentHeight
     console.log(this.contentHeight)
     console.log(this.innerHeight)
+    this.resetScrollVars()
 // this.container.children
     /* for (let i = 0; i <= (this.length - 1); i++) {
       if (i < index) {
