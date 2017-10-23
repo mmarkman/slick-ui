@@ -61,9 +61,9 @@ export class ScrollPanel extends Panel {
 */
   resetScrollVars () {
     this.scrollableHeight = this.innerHeight - this.height
-    if (this.scrollableHeight < 0) {
+    /* if (this.scrollableHeight < 0) {
       this.scrollableHeight = this.scrollableHeight * -1
-    }
+  } */
     this.scrollableWidth = this.innerWidth - this.width
   }
   init () {

@@ -109,8 +109,10 @@ export class Panel extends Element {
 
     var x = this.container.x = this.container.parent.x + this._x
     var y = this.container.y = this.container.parent.y + this._y
-    var width = this.container.width = Math.min(this.container.parent.width - this._x, this._width)
-    var height = this.container.height = Math.min(this.container.parent.height - this._y, this._height)
+    /* var width = this.container.width = Math.min(this.container.parent.width - this._x, this._width)
+    var height = this.container.height = Math.min(this.container.parent.height - this._y, this._height) */
+    var width = this.container.width = this._width
+    var height = this.container.height = this._height
     this.container.x += Math.round(theme.panel['border-x'] / 2)
     this.container.y += Math.round(theme.panel['border-y'] / 2)
     this.container.width -= theme.panel['border-x']

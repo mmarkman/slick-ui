@@ -27,7 +27,7 @@ export class VerticalList extends ScrollPanel {
     item.width = this.width - 24
     this.items.splice(index, 0, item)
     this.length = this.items.length
-    this.contentHeight += item.height
+    this.contentHeight += item.height + this.spacing
     if (this.length > 1) {
       this.contentHeight += this.spacing
     }
