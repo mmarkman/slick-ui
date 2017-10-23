@@ -29,14 +29,12 @@
         innerPanel.add(new slickUI.Text(game, 6, 0, "Mkkkkkkkkkkkkkenu"));
         panel.append(innerPanel = new slickUI.Panel(game, 6, 8, 148, 40));
         innerPanel.add(new slickUI.Text(game, 6, 0, "Menu"));
-        panel.append(innerPanel = new slickUI.Panel(game, 6, 8, 148, 40));
-        innerPanel.add(new slickUI.Text(game, 6, 0, "Menu"));
-        panel.append(innerPanel = new slickUI.Panel(game, 6, 8, 148, 40));
-        innerPanel.add(new slickUI.Text(game, 6, 0, "Menu"));
-        panel.append(innerPanel = new slickUI.Panel(game, 6, 8, 148, 40));
-        innerPanel.add(new slickUI.Text(game, 6, 0, "Menu"));
-        panel.append(innerPanel = new slickUI.Panel(game, 6, 8, 148, 40));
-        innerPanel.add(new slickUI.Text(game, 6, 0, "Menu"));
+        panel.append(button = new slickUI.Button(game, 6 , 0, 150, 80));
+        button.events.onInputUp.add(function () {
+            panel.append(innerPanel = new slickUI.Panel(game, 6, 8, 148, 40));
+            innerPanel.add(new slickUI.Text(game, 0, 0, "Menu"));
+        });
+    
 
         panel.visible = false;
         var basePosition = panel.x;
