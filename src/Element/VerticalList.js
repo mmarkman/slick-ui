@@ -11,6 +11,7 @@ export class VerticalList extends ScrollPanel {
     this.length = 0
     this.contentHeight = 0
     this.spacing = 0
+    this.items = []
   }
 
   insertItem (item) {
@@ -18,13 +19,8 @@ export class VerticalList extends ScrollPanel {
   }
 
   addItemAtIndex (item, index) {
-    if (index >= this.length) {
-      console.log('WRONG INDEX. THINK AGAIN.')
-      return
-    }
-
-    this.add(item)
-    item.x = 0
+    item = this.add(item)
+    item._x = 0
     item.width = this.width
     this.items.splice(index, 0, item)
     this.length = this.items.length
@@ -32,16 +28,18 @@ export class VerticalList extends ScrollPanel {
     if (this.length > 1) {
       this.contentHeight += this.spacing
     }
+    this.innerHeight = this.contentHeight
+    this.resetScrollVars()
 // this.container.children
     /* for (let i = 0; i <= (this.length - 1); i++) {
       if (i < index) {
         // do I need this?
       } else if (i === index) {
         if (this.items[i + 1]) {
-          this.items.y = this.items[i + 1].y
+          this.items._y = this.items[i + 1]._y
         }
       } else {
-        this.items[i].y += item.height + this.spacing
+        this.items[i]._y += item.height + this.spacing
       }
     } */
     for (let i = index; i <= (this.length - 1); i++) {
