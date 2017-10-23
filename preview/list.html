@@ -25,13 +25,13 @@
         slickUI.add(panel = new slickUI.VerticalList(game, game.width - 176, 8, 170, game.height - 16, 200, game.height + 50));
 //        slickUI.add(panel = new slickUI.Panel(game, game.width - 156, 8, 150, game.height - 16));
         
-        panel.append(innerPanel = new slickUI.Panel(game, 6, 8, 148, 40));
+        panel.append(innerPanel = new slickUI.Panel(game, 6, 0, 148, 40));
         innerPanel.add(new slickUI.Text(game, 6, 0, "Mkkkkkkkkkkkkkenu"));
-        panel.append(innerPanel = new slickUI.Panel(game, 6, 8, 148, 40));
+        panel.append(innerPanel = new slickUI.Panel(game, 6, 0, 148, 40));
         innerPanel.add(new slickUI.Text(game, 6, 0, "Menu"));
         panel.append(button = new slickUI.Button(game, 6 , 0, 150, 80));
         button.events.onInputUp.add(function () {
-            panel.append(innerPanel = new slickUI.Panel(game, 6, 8, 148, 40));
+            panel.append(innerPanel = new slickUI.Panel(game, 6, 0, 148, 40));
             innerPanel.add(new slickUI.Text(game, 0, 0, "Menu"));
         });
     

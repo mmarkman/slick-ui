@@ -10,7 +10,7 @@ export class VerticalList extends ScrollPanel {
     super(game, x, y, width, height, width, height)
     this.length = 0
     this.contentHeight = 0
-    this.spacing = 5
+    this.spacing = 12
     this.items = []
   }
 
@@ -20,33 +20,18 @@ export class VerticalList extends ScrollPanel {
 
   addItemAtIndex (item, index) {
     item = this.add(item)
-    if (index === this.items.length) {
-      item.y = this.contentHeight += this.spacing
+    if (index === this.items.length && index !== 0) {
+      item._y = this.items[this.items.length - 1]._y + this.items[this.items.length - 1].height + this.spacing
     }
     item._x = 8
     item.width = this.width - 24
     this.items.splice(index, 0, item)
     this.length = this.items.length
     this.contentHeight += item.height + this.spacing
-    if (this.length > 1) {
-      this.contentHeight += this.spacing
-    }
     this.innerHeight = this.contentHeight
     console.log(this.contentHeight)
     console.log(this.innerHeight)
     this.resetScrollVars()
-// this.container.children
-    /* for (let i = 0; i <= (this.length - 1); i++) {
-      if (i < index) {
-        // do I need this?
-      } else if (i === index) {
-        if (this.items[i + 1]) {
-          this.items.y = this.items[i + 1].y
-        }
-      } else {
-        this.items[i].y += item.height + this.spacing
-      }
-    } */
     for (let i = index; i <= (this.length - 1); i++) {
       if (i === index) {
         if (this.items[i + 1]) {
