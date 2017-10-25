@@ -35,10 +35,10 @@ export class VerticalList extends ScrollPanel {
     for (let i = index; i <= (this.length - 1); i++) {
       if (i === index) {
         if (this.items[i + 1]) {
-          this.items[i].y = this.items[i + 1].y
+          this.items[i]._y = this.items[i + 1]._y
         }
       } else {
-        this.items[i].y += item.height + this.spacing
+        this.items[i]._y += item.height + this.spacing
       }
     }
   }
