@@ -51,7 +51,12 @@ export class Panel extends Element {
       }
     })
   }
-
+  makeDraggable () {
+    this._groupSprite.inputEnabled = true
+    this._groupSprite.events.onInputDown.add(() => { this.game.world.bringToTop(this.container.displayGroup) }, this)
+    this._groupSprite.input.enableDrag()
+    this._groupSprite.input.enableSnap(4, this._groupSprite.height + 10.2, false, true)
+  }
   get x () {
     return this._x
   }
@@ -120,6 +125,9 @@ export class Panel extends Element {
 
     this._bodySprite = this.container.displayGroup.add(this.container.root.getRenderer('panel').renderBody(width, height))
     this._borderSprite = this.container.displayGroup.add(this.container.root.getRenderer('panel').renderBorder(width, height))
+    this._groupSprite = this.container.displayGroup.add(this.game.make.sprite(0, 0, 'slick-ui-1x1'))
+    this._groupSprite.addChild(this._bodySprite)
+    this._groupSprite.addChild(this._borderSprite)
     this._bodySprite.x = this._borderSprite.x = x
     this._bodySprite.y = this._borderSprite.y = y
     this._bodySprite.fixedToCamera = true

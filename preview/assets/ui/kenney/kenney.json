@@ -14,7 +14,8 @@
     "slider_base": "images/grey_sliderHorizontal.png",
     "slider_handle_off": "images/grey_sliderDown.png",
     "slider_handle_on": "images/blue_sliderDown.png",
-    "panel": "images/grey_panel.png"
+    "panel": "images/grey_panel.png",
+	"1x1":"images/1x1.png"
   },
   "renderer": {
     "button": "SlickUI.Element.Renderer.ButtonRenderer"

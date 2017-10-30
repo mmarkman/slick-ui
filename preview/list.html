@@ -31,14 +31,7 @@
         button.events.onInputUp.add(function () {
             ind += 1;
             panel.append(innerPanel = new slickUI.Panel(game, 6, 0, 148, 40));
-            for (child in innerPanel.container.displayGroup.children){
-                var the = innerPanel.container.displayGroup.children[child]
-                var the2 = innerPanel.container.displayGroup
-                innerPanel.container.displayGroup.children[child].inputEnabled = true;
-                innerPanel.container.displayGroup.children[child].input.enableDrag();
-                console.log(innerPanel.width + 22, innerPanel.container.height + 16)
-                innerPanel.container.displayGroup.children[child].input.enableSnap(innerPanel.width + 26.5, innerPanel.container.height + 16, true, true);
-            }
+            innerPanel.makeDraggable()
         });
     
 
