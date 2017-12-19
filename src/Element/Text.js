@@ -76,6 +76,10 @@ export class TextObj {
     }
   };
 
+  setFixedToCamera (follow) {
+    this.text.fixedToCamera = follow
+  }
+
     /**
      * Bitmap text objects don't work too well when moved around;
      * that's why we destroy it and re-create it.

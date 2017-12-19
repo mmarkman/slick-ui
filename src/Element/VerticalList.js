@@ -17,6 +17,11 @@ export class VerticalList extends ScrollPanel {
   insertItem (item) {
     this.addItemAtIndex(item, 0)
   }
+  setFixedToCamera (follow) {
+    this.mask.fixedToCamera = follow
+    this._bodySprite.fixedToCamera = follow
+    this._borderSprite.fixedToCamera = follow
+  }
 
   addItemAtIndex (item, index) {
     item = this.add(item)

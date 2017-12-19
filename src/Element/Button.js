@@ -22,6 +22,10 @@ export class Button extends Element {
     this.borderWidthY = theme.button['border-y']
   }
 
+  setFixedToCamera (follow) {
+    this.sprite.fixedToCamera = follow
+  }
+
   get x () {
     return this._x
   }
