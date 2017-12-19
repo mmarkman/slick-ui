@@ -52,6 +52,7 @@ export class Panel extends Element {
     })
   }
   makeDraggable () {
+    this._groupSprite.fixedToCamera = true
     this._groupSprite.inputEnabled = true
     this._groupSprite.events.onInputDown.add(() => { this.game.world.bringToTop(this.container.displayGroup) }, this)
     this._groupSprite.input.enableDrag()
