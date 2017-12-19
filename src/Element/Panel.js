@@ -107,6 +107,9 @@ export class Panel extends Element {
   setFixedToCamera (follow) {
     this._bodySprite.fixedToCamera = follow
     this._borderSprite.fixedToCamera = follow
+    if (!follow) {
+      this._x = 38
+    }
   }
 
   makePanelFollowNPC (group) {

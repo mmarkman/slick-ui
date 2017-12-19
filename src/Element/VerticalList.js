@@ -23,12 +23,22 @@ export class VerticalList extends ScrollPanel {
     this._borderSprite.fixedToCamera = follow
   }
 
+  makePanelFollowNPC (group) {
+    this._borderSprite.fixedToCamera = false
+    this._bodySprite.fixedToCamera = false
+    this._bodySprite.x = 38
+    this._borderSprite.x = 38
+    this.mask.fixedToCamera = false
+    this.mask.x = 38
+    group.add(this.container.displayGroup)
+  }
+
   addItemAtIndex (item, index) {
     item = this.add(item)
     if (index === this.items.length && index !== 0) {
       item._y = this.items[this.items.length - 1]._y + this.items[this.items.length - 1].height + this.spacing
     }
-    item._x = 8
+    item._x = 44
     item.width = this.width - 24
     this.items.splice(index, 0, item)
     this.length = this.items.length
