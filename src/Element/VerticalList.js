@@ -33,12 +33,12 @@ export class VerticalList extends ScrollPanel {
     group.add(this.container.displayGroup)
   }
 
-  addItemAtIndex (item, index) {
+  addItemAtIndex (item, index, xOffset) {
     item = this.add(item)
     if (index === this.items.length && index !== 0) {
       item._y = this.items[this.items.length - 1]._y + this.items[this.items.length - 1].height + this.spacing
     }
-    item._x = 44
+    item._x = xOffset
     item.width = this.width - 24
     this.items.splice(index, 0, item)
     this.length = this.items.length
@@ -58,8 +58,8 @@ export class VerticalList extends ScrollPanel {
     }
   }
 
-  append (item) {
-    this.addItemAtIndex(item, this.length)
+  append (item, xOffset) {
+    this.addItemAtIndex(item, this.length, xOffset)
   }
 
   removeItemAtIndex () {
